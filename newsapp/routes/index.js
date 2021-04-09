@@ -5,6 +5,19 @@ const SALT_ROUNDS = 10
 
 
 
+router.get('/logout', (req,res,next) => {
+  if (req.session){
+      req.session.destroy((error)=>{
+          if(error){
+              next(error)
+          } else {
+              res.redirect('/login')
+          }
+      })
+  }
+}
+)
+
 router.get('/login', (req,res) => {
   res.render('login')
 })
