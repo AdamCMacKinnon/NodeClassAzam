@@ -12,7 +12,7 @@ const authorization = require('./auth/authorization')
 const userRoutes = require('./routes/users')
 const indexRoutes = require('./routes/')
 
-const PORT = 5000
+const PORT = process.env.PORT || 8080
 const CONNECTION_STRING = "postgres://localhost:5432/newsdb"
 
 
