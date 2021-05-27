@@ -27,7 +27,7 @@ app.use('/users', userRoutes)
 //static
 app.use('/uploads', express.static('uploads'));
 
-const PORT = 3000
+const PORT = 5000
 const VIEWS_PATH = path.join(__dirname,'/views')
 
 app.engine('mustache',mustacheExpress(VIEWS_PATH + '/partials','.mustache'))
