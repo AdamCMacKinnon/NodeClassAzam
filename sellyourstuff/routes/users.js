@@ -1,7 +1,7 @@
 const express = require('express')
 const formidable = require('formidable')
 const router = express.Router()
-const uuidv1 = require('uuidv1');
+const uuidv1 = require('uuid');
 
 let uniqueFileName = ''
 
@@ -13,7 +13,7 @@ function uploadFile(req, callback) {
     new formidable.IncomingForm().parse(req)
     .on('fileBegin', (name,file)=>{
 
-        uniqueFileName = `${uuid()}.${file.name.split('.').pop()}`
+        uniqueFileName = `${Math.random()}.${file.name.split('.').pop()}`
         file.name = uniqueFileName
         file.path = __basdir + '/uploads/' + uniqueFileName
 
@@ -27,7 +27,8 @@ function uploadFile(req, callback) {
 
 router.post('/upload', (req, res) => {
   uploadFile(req,(photoUrl)=>{
-      res.send("UPLOAD")
+      photoUrl = `/uploads/${photoUrl}`
+      res.render('add-product', {imageUrl: photoUrl, className: 'product-preview-image'})
 
   })
 })

@@ -26,6 +26,7 @@ app.use('/users', userRoutes)
 
 //static
 app.use('/uploads', express.static('uploads'));
+app.use('/css',express.static('css'));
 
 const PORT = 5000
 const VIEWS_PATH = path.join(__dirname,'/views')
