@@ -2,11 +2,36 @@ const express = require('express')
 const formidable = require('formidable')
 const router = express.Router()
 const uuidv1 = require('uuid');
+const models = require('../models');
 
 let uniqueFileName = ''
 
 router.get('/add-product', (req, res) => {
-  res.render('add-product')
+  res.render('users/add-product')
+})
+
+router.post('/add-product', async (req,res) => {
+  let title = req.body.title
+  let description = req.body.description
+  let price = parseFloat(req.body.price)
+  let userId = req.session.user.userId
+
+  let product = models.Product.build({
+    title: title,
+    description: description,
+    price: price,
+    userId: userId,
+    imageUrl: uniqueFileName
+  })
+
+  let persistedProduct = await product.save()
+  if(persistedProduct != null) {
+    res.redirect('users/products')
+  } else {
+    res.render('/add-product', {message: 'Unable to add product!'});
+  }
+
+
 })
 
 function uploadFile(req, callback) {
